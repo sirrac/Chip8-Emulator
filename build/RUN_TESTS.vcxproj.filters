@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\srika\.vscode\CPP Practice\Chip8-Emulator\build\CMakeFiles\909dc3d98d0472c91bde4313a896509d\RUN_TESTS_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{24D7F810-E1CB-39CC-B08C-CCF873480C5F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

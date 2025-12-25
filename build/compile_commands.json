@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/srika/.vscode/CPP Practice/Chip8-Emulator/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\c++.exe    -o CMakeFiles\\Chip8-Emulator.dir\\main.cpp.obj -c \"C:\\Users\\srika\\.vscode\\CPP Practice\\Chip8-Emulator\\main.cpp\"",
+  "file": "C:/Users/srika/.vscode/CPP Practice/Chip8-Emulator/main.cpp",
+  "output": "CMakeFiles/Chip8-Emulator.dir/main.cpp.obj"
+}
+]

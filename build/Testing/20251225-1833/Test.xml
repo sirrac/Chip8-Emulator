@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Win32-mingw32-make"
+	BuildStamp="20251225-1833-Experimental"
+	Name="MSI"
+	Generator="ctest-4.2.1"
+	CompilerName="C:/msys64/ucrt64/bin/c++.exe"
+	CompilerVersion="14.2.0"
+	OSName="Windows"
+	Hostname="MSI"
+	OSRelease="10.0.26200"
+	OSVersion="Windows 10"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="15"
+	ModelID="0"
+	ModelName="AMD Ryzen 7 5800H with Radeon Graphics"
+	ProcessorCacheSize="64"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="22665"
+	TotalPhysicalMemory="15753"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3201"
+	>
+	<Testing>
+		<StartDateTime>Dec 25 13:13 Central Standard Time</StartDateTime>
+		<StartTestTime>1766690039</StartTestTime>
+		<TestList/>
+		<EndDateTime>Dec 25 13:13 Central Standard Time</EndDateTime>
+		<EndTestTime>1766690039</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>
