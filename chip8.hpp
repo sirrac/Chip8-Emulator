@@ -1,6 +1,7 @@
 #ifndef CHIP8_EMULATOR_HPP
 #define CHIP8_EMULATOR_HPP
 #include <cstdint>
+#include <string.h>
 
 class Chip8 {
 
@@ -23,9 +24,25 @@ private:
     //Display
     uint8_t display[64 * 32];
 
+    //16 bit instruction
+    uint16_t instruction;
+
 public: 
     Chip8();
     ~Chip8();
+    void LoadRom();
+
+    //instructions
+    void OP_00E0(); //CLEAR
+    void OP_00EE(); //RET
+    void OP_1nnn(); //JUMP
+    void OP_2nnn(); //CALL
+
+    void OP_3xnn(); //skip next instruction if Vx = nn
+    void OP_4xnn(); //skip next instruction if Vx != nn
+    void OP_5xy0(); //skip next instruction if Vx = Vy
+    void OP_6xnn(); //Set value register
+    void OP_7xnn(); //add value to this register
 
 
 };
