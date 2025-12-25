@@ -70,7 +70,32 @@ void Chip8::OP_2nnn() {
     PC = instruction & 0x0FFF;
 }
 
+void Chip8::OP_3xnn() {
+    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    uint16_t val = instruction & 0x00FF;
 
+    if (V[reg] == val) {
+        PC += 2;
+    }
+}
+
+void Chip8::OP_4xnn() {
+    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    uint16_t val = instruction & 0x00FF;
+
+    if (V[reg] != val) {
+        PC += 2;
+    }
+}
+
+void Chip8::OP_5xy0() {
+    uint16_t regOne = (instruction & 0x0F00) >> 8u;
+    uint16_t regTwo = (instruction & 0x00F0) >> 4u;
+
+    if (V[regOne] == V[regTwo]) {
+        PC += 2;
+    }
+}
 
 void Chip8::OP_6xnn() {
     //set
@@ -88,3 +113,49 @@ void Chip8::OP_7xnn() {
     
     V[reg] += val;
 }
+
+void Chip8::OP_8xy0() {
+    //Assignment of one register to another
+    uint16_t regOne = (instruction & 0x0F00) >> 8u;
+    uint16_t regTwo = (instruction & 0x00F0) >> 4u;
+
+    V[regOne] = V[regTwo];
+}
+
+void Chip8::OP_8xy1() {
+    //Assignment of bitwise OR to first register
+    uint16_t regOne = (instruction & 0x0F00) >> 8u;
+    uint16_t regTwo = (instruction & 0x00F0) >> 4u;
+
+    V[regOne] = V[regOne] | V[regTwo];
+}
+
+void Chip8::OP_8xy2() {
+    //Assignment of bitwise AND to first register
+    uint16_t regOne = (instruction & 0x0F00) >> 8u;
+    uint16_t regTwo = (instruction & 0x00F0) >> 4u;
+
+    V[regOne] = V[regOne] & V[regTwo];
+}
+
+void Chip8::OP_8xy3() {
+    //Assignment of bitwise XOR to first register
+    uint16_t regOne = (instruction & 0x0F00) >> 8u;
+    uint16_t regTwo = (instruction & 0x00F0) >> 4u;
+
+    V[regOne] = V[regOne] ^ V[regTwo];
+}
+
+void Chip8::OP_8xy4() {
+   // Set Vx = Vx + Vy, set VF = carry.
+    //The values of Vx and Vy are added together. 
+    //If the result is greater than 8 bits (i.e., > 255,) VF is set to 1, otherwise 0. Only the lowest 8 bits of the result are kept, and stored in Vx.
+
+}
+
+void Chip8::OP_8xy5() {
+   //Set Vx = Vx - Vy, set VF = NOT borrow.
+
+//If Vx > Vy, then VF is set to 1, otherwise 0. Then Vy is subtracted from Vx, and the results stored in Vx.
+}
+

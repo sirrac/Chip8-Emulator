@@ -41,10 +41,18 @@ public:
     void OP_3xnn(); //skip next instruction if Vx = nn
     void OP_4xnn(); //skip next instruction if Vx != nn
     void OP_5xy0(); //skip next instruction if Vx = Vy
-    void OP_6xnn(); //Set value register
+    void OP_6xnn(); //Set a value to register
     void OP_7xnn(); //add value to this register
 
-
-};
+    void OP_8xy0(); //Set a register to another register
+    void OP_8xy1();
+    void OP_8xy2();
+    void OP_8xy3();
+    void OP_8xy4();
+    void OP_8xy5();
+    void OP_8xy6();
+    void OP_8xy7();
+    void OP_8xyE();
+};  
 
 #endif
