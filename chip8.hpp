@@ -27,16 +27,18 @@ private:
     uint16_t stack[16];
     //Display
     uint8_t display[64 * 32];
-
     //16 bit instruction
     uint16_t instruction;
+
+
+    std::default_random_engine randGen;
+	std::uniform_int_distribution<uint8_t> randByte;
 
 public: 
     Chip8();
     ~Chip8();
     void LoadRom(const char* filePath);
-	std::default_random_engine randGen;
-	std::uniform_int_distribution<uint8_t> randByte;
+	
 
     //instructions
     void OP_00E0(); //CLEAR
@@ -66,6 +68,11 @@ public:
     void OP_Bnnn();
 
     void OP_Fx07();
+
+    void OP_Fx15();
+    void OP_Fx18();
+    void OP_Fx1E();
+
 };  
 
 #endif

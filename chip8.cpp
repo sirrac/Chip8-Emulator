@@ -208,4 +208,23 @@ void Chip8::OP_Fx07() {
     V[reg] = delayTimer;
 }
 
+void Chip8::OP_Fx15() {
+    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    delayTimer = V[reg];
+}
+
+
+void Chip8::OP_Fx18() {
+    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    soundTimer = V[reg];
+}
+
+void Chip8::OP_Fx1E() {
+    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    indexRegister += V[reg];
+}
+
+
+
+
 
