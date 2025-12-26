@@ -4,6 +4,8 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
+#include <chrono>
+#include <random>
 
 class Chip8 {
 
@@ -33,6 +35,8 @@ public:
     Chip8();
     ~Chip8();
     void LoadRom(const char* filePath);
+	std::default_random_engine randGen;
+	std::uniform_int_distribution<uint8_t> randByte;
 
     //instructions
     void OP_00E0(); //CLEAR
