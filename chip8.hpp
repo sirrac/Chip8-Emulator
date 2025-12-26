@@ -72,7 +72,9 @@ public:
     void OP_Fx15();
     void OP_Fx18();
     void OP_Fx1E();
-
+    
+    void OP_Fx55();
+    void OP_Fx65();
 };  
 
 #endif
