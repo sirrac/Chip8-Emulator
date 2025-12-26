@@ -182,3 +182,30 @@ void Chip8::OP_8xy5() {
 //If Vx > Vy, then VF is set to 1, otherwise 0. Then Vy is subtracted from Vx, and the results stored in Vx.
 }
 
+void Chip8::OP_9xy0() {
+
+    //inequality for two registers
+
+    uint16_t regOne = (instruction & 0x0F00) >> 8u;
+    uint16_t regTwo = (instruction & 0x00F0) >> 4u;
+
+    if (V[regOne] != V[regTwo]) {
+        PC += 2;
+    }
+}
+
+void Chip8::OP_Annn() {
+    indexRegister = (instruction & 0x0FFF);
+}
+
+void Chip8::OP_Bnnn() {
+    uint16_t reg = (instruction & 0x0FFF) + V[0];
+    PC = reg;
+}
+
+void Chip8::OP_Fx07() {
+    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    V[reg] = delayTimer;
+}
+
+
