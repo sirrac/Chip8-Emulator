@@ -42,6 +42,29 @@ Chip8::Chip8() {
     }
 };
 
+void Chip8::LoadRom(const char* filePath) {
+    //initialize a stream, specifiy it's binary, put pointer at end
+    std::ifstream inputFile(filePath, std::ios::binary | std::ios::ate);
+    
+    if (inputFile.is_open()) {
+        //create stream position object to essentially get size of file
+        std::streampos size = inputFile.tellg(); //tellg returns position of where you are in the stream
+        char* bufferArray = new char[size]; //dynamically allocated as we don't size at compile time
+
+        //Now, that we know size, we can use ifstream .read() to copy into array
+        inputFile.seekg(std::ios::beg); //use seekg to move the get pointer at the beginning of the file
+        inputFile.read(bufferArray, size);
+
+        //Copy into real memory now
+        for (int i = 0; i < size; i++) {
+            memory[0x200 + i] = bufferArray[i];
+        }
+
+        delete[] bufferArray; 
+
+    }
+}
+
 Chip8::~Chip8() {
     //Not sure if this is needed lol everything is on the stack for now
 }

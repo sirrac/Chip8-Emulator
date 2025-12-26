@@ -2,6 +2,8 @@
 #define CHIP8_EMULATOR_HPP
 #include <cstdint>
 #include <string.h>
+#include <iostream>
+#include <fstream>
 
 class Chip8 {
 
@@ -30,7 +32,7 @@ private:
 public: 
     Chip8();
     ~Chip8();
-    void LoadRom();
+    void LoadRom(const char* filePath);
 
     //instructions
     void OP_00E0(); //CLEAR
