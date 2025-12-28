@@ -39,6 +39,7 @@ public:
     ~Chip8();
     void LoadRom(const char* filePath);
     void Cycle();
+    void ProcessInstruction();
 	
 
     //instructions

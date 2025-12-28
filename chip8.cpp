@@ -72,15 +72,63 @@ void Chip8::Cycle() {
     uint8_t firstByte = memory[PC];
     uint8_t secondByte = memory[PC + 1];
 
-    uint16_t currentInstruction = static_cast<uint16_t>(firstByte) << 8u | secondByte;
+    instruction = static_cast<uint16_t>(firstByte) << 8u | secondByte;
 
     PC = PC + 2;
 
-
-    switch 
-
-
+    
 }
+
+void Chip8::ProcessInstruction() {
+    //We have unique codes, group8, group0, groupE, and groupF
+    uint8_t group = (instruction & 0xF000) >> 12u;
+    switch (group) {
+        case 1:
+            OP_1nnn();
+            break;
+        case 2: 
+            OP_2nnn();
+            break;
+        case 3: 
+            OP_3xnn();
+            break;
+        case 4:
+            OP_4xnn();
+            break;
+        case 5:
+            OP_5xy0();
+            break;
+        case 6:
+            OP_6xnn();
+            break;
+        case 7:
+            OP_7xnn();            
+            break;
+
+        case 8:
+            //make a function to handle 
+            break;
+
+        case 9:
+            OP_9xy0();
+            break;
+
+        case 0xA:
+            OP_Annn();           
+            break;
+
+        case 0xB:
+            OP_Bnnn();
+            break;
+
+        case 0xC:
+            
+            break;
+        case 0XD:  
+
+    }
+}
+
 
 Chip8::~Chip8() {
     //Not sure if this is needed lol everything is on the stack for now
