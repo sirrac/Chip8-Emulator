@@ -21,7 +21,7 @@ private:
     uint8_t delayTimer, soundTimer;
     //4096 bytes of RAM
     uint8_t memory[4096];
-    //Keypad
+    //Keypad. either pressed or isn't
     uint8_t keyPad[16];
     //Stack each level holds two instructions I believe, so need two bytes so uint16. can have 16 levels
     uint16_t stack[16];
@@ -38,6 +38,7 @@ public:
     Chip8();
     ~Chip8();
     void LoadRom(const char* filePath);
+    void Cycle();
 	
 
     //instructions
@@ -67,6 +68,10 @@ public:
     void OP_Annn();
     void OP_Bnnn();
 
+    void OP_Ex9E();
+    void OP_ExA1();
+
+    void OP_Fx0A();
     void OP_Fx07();
 
     void OP_Fx15();

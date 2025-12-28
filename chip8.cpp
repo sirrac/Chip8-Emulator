@@ -65,6 +65,23 @@ void Chip8::LoadRom(const char* filePath) {
     }
 }
 
+void Chip8::Cycle() {
+    //Instructions are two bytes
+
+    //Fetch
+    uint8_t firstByte = memory[PC];
+    uint8_t secondByte = memory[PC + 1];
+
+    uint16_t currentInstruction = static_cast<uint16_t>(firstByte) << 8u | secondByte;
+
+    PC = PC + 2;
+
+
+    switch 
+
+
+}
+
 Chip8::~Chip8() {
     //Not sure if this is needed lol everything is on the stack for now
 }
@@ -264,13 +281,34 @@ void Chip8::OP_Bnnn() {
     PC = reg;
 }
 
+void Chip8::OP_Ex9E() {
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
+
+    if (keyPad[V[reg]]) {
+        PC = PC + 2;
+    }
+}
+
+void Chip8::OP_ExA1() {
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
+
+    if (!keyPad[V[reg]]) {
+        PC = PC + 2;
+    }
+}
+
+void Chip8::OP_Fx0A() {
+   // All execution stops until a key is pressed, then the value of that key is stored in Vx.
+
+}
+
 void Chip8::OP_Fx07() {
-    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
     V[reg] = delayTimer;
 }
 
 void Chip8::OP_Fx15() {
-    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
     delayTimer = V[reg];
 }
 
