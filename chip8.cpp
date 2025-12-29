@@ -470,13 +470,25 @@ void Chip8::OP_Fx15() {
 
 
 void Chip8::OP_Fx18() {
-    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
     soundTimer = V[reg];
 }
 
 void Chip8::OP_Fx1E() {
-    uint16_t reg = (instruction & 0x0F00) >> 8u;
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
     indexRegister += V[reg];
+}
+
+void Chip8::OP_Fx29() {
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
+    indexRegister = 0x050 + 5 * V[reg];
+}
+
+void Chip8::OP_Fx33() {
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
+
+    std::string decimal_val = std::to_string(V[reg]);   
+    
 }
 
 

@@ -7,6 +7,7 @@
 #include <chrono>
 #include <random>
 
+
 class Chip8 {
 
 //a byte is represented by the unit8_t. Use this for 8 bit position stuff
