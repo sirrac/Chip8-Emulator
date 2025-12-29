@@ -76,13 +76,31 @@ void Chip8::Cycle() {
 
     PC = PC + 2;
 
+    ProcessInstruction();
+
+    if (delayTimer > 0) {
+        delayTimer--;
+    } 
+
+    if (soundTimer > 0) {
+        soundTimer--;
+    }
     
 }
 
 void Chip8::ProcessInstruction() {
     //We have unique codes, group8, group0, groupE, and groupF
     uint8_t group = (instruction & 0xF000) >> 12u;
+    uint8_t end = (instruction & 0x000F);
+    uint8_t lastTwo = (instruction & 0x00FF);
     switch (group) {
+        case 0:
+            if (end == 0) {
+                OP_00E0();
+            } else if (end == 0xE) {
+                OP_00EE();
+            }
+            break;  
         case 1:
             OP_1nnn();
             break;
@@ -107,6 +125,7 @@ void Chip8::ProcessInstruction() {
 
         case 8:
             //make a function to handle 
+            Group8(end);
             break;
 
         case 9:
@@ -122,10 +141,78 @@ void Chip8::ProcessInstruction() {
             break;
 
         case 0xC:
-            
+            OP_Cxnn();
             break;
         case 0XD:  
+            OP_Dxyn();
+        case 0xE:
+            if (lastTwo == 0xA1) {
+                OP_ExA1();
+            } else if (lastTwo == 0x9E) {
+                OP_Ex9E();
+            }
+            break;
+        case 0xF:
+            GroupF(lastTwo);
+            break;
+    }   
+}
 
+void Chip8::GroupF(uint8_t endByte) {
+    switch (endByte) {
+        case 0x0A:
+            OP_Fx0A();
+            break;
+        case 0x15:
+            OP_Fx15();
+        case 0x18:
+            OP_Fx18();
+            break;
+        case 0x1E:
+            OP_Fx1E();
+            break;
+        case 0x29:
+            OP_Fx29();
+            break;
+        case 0x33:
+            OP_Fx33();
+            break;
+        case 0x55:
+            OP_Fx55();
+            break;
+        case 0x65:
+            OP_Fx65();
+            break;
+    }
+}
+void Chip8::Group8(uint8_t endNibble) {
+    switch (endNibble) {
+        case 0:
+            OP_8xy0();
+            break;
+        case 1:
+            OP_8xy1();
+            break;
+        case 2:
+            OP_8xy2();
+            break;
+        case 3:
+            OP_8xy3();
+            break;
+        case 4:
+            OP_8xy4();
+            break;
+        case 5:
+            OP_8xy5();
+            break;
+        case 6:
+            OP_8xy6();
+            break;
+        case 7:
+            OP_8xy7();
+            break;
+        case 8:
+            OP_8xyE();
     }
 }
 
@@ -327,6 +414,27 @@ void Chip8::OP_Annn() {
 void Chip8::OP_Bnnn() {
     uint16_t reg = (instruction & 0x0FFF) + V[0];
     PC = reg;
+}
+
+void Chip8::OP_Cxnn() {
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
+    uint8_t value = (instruction & 0x00FF);
+
+    V[reg] = value & randByte(randGen);
+
+}
+
+void Chip8::OP_Dxyn() {
+    //The interpreter reads n bytes from memory, starting at the address stored in I. 
+    //These bytes are then displayed as sprites on screen at coordinates (Vx, Vy). Sprites are XORed onto the existing screen. 
+    //If this causes any pixels to be erased, VF is set to 1, otherwise it is set to 0. If the sprite is positioned so part of it is 
+    //outside the coordinates of the display, it wraps around to the opposite side of the screen. See instruction 8xy3 for more information on
+    // XOR, and section 2.4, Display, for more information on the Chip-8 screen and sprites.
+    uint8_t n = (instruction & 0x0F00) >> 8u;
+    uint8_t x = (instruction & 0x00F0) >> 4u;
+    uint8_t y = (instruction & 0x000F);
+
+
 }
 
 void Chip8::OP_Ex9E() {

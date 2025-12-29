@@ -13,5 +13,7 @@ int main(int argc, char* argv[]){
     while (true) {
         //Need some sort of way to run the cycle inside the Chip8 and then call corresponding method, and then we can just call cycle on chip8. this is 
         //because instruction is contained in an individual chip8 object
+
+        chip8.Cycle();
     }
 }
