@@ -6,6 +6,7 @@
 #include <fstream>
 #include <chrono>
 #include <random>
+#include <string>
 
 
 class Chip8 {
@@ -33,7 +34,7 @@ private:
 
 
     std::default_random_engine randGen;
-	std::uniform_int_distribution<uint8_t> randByte;
+	std::uniform_int_distribution<unsigned short> randByte;
 
 public: 
     Chip8();

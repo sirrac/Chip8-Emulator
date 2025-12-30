@@ -1,5 +1,7 @@
 #include <iostream>
+#include <SDL3/SDL.h>
 #include "chip8.hpp"
+
 
 int main(int argc, char* argv[]){
     if (argc < 2) {
@@ -10,10 +12,14 @@ int main(int argc, char* argv[]){
     Chip8 chip8 = Chip8();
     chip8.LoadRom(filePath);
 
-    while (true) {
-        //Need some sort of way to run the cycle inside the Chip8 and then call corresponding method, and then we can just call cycle on chip8. this is 
-        //because instruction is contained in an individual chip8 object
+    SDL_Window* window = NULL;
+    
+    //The surface contained by the window
+    SDL_Surface* screenSurface = NULL;
 
-        chip8.Cycle();
+    //Initialize SDL
+    if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
+    {
+        printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
     }
 }

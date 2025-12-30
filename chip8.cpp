@@ -487,7 +487,15 @@ void Chip8::OP_Fx29() {
 void Chip8::OP_Fx33() {
     uint8_t reg = (instruction & 0x0F00) >> 8u;
 
-    std::string decimal_val = std::to_string(V[reg]);   
+    std::string stringHex = std::to_string(V[reg]);   
+
+    long decimal_value = std::stoi(stringHex, nullptr, 16);
+
+    memory[indexRegister + 2] = decimal_value % 10;
+    decimal_value /= 10;
+    memory[indexRegister + 1] = decimal_value % 10;
+    decimal_value /= 10;
+    memory[indexRegister] = decimal_value % 10;
     
 }
 
