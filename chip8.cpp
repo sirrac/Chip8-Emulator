@@ -1,4 +1,5 @@
 #include "chip8.hpp"
+#include <cassert>
 
 Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().count()), randByte(0, 255) {
     //initialize 
@@ -430,10 +431,36 @@ void Chip8::OP_Dxyn() {
     //If this causes any pixels to be erased, VF is set to 1, otherwise it is set to 0. If the sprite is positioned so part of it is 
     //outside the coordinates of the display, it wraps around to the opposite side of the screen. See instruction 8xy3 for more information on
     // XOR, and section 2.4, Display, for more information on the Chip-8 screen and sprites.
-    uint8_t n = (instruction & 0x0F00) >> 8u;
-    uint8_t x = (instruction & 0x00F0) >> 4u;
-    uint8_t y = (instruction & 0x000F);
+    uint8_t x = (instruction & 0x0F00) >> 8u;
+    uint8_t y = (instruction & 0x00F0) >> 4u;
+    uint8_t n = (instruction & 0x000F);
 
+    uint8_t xPosition = V[x] % 64;
+    uint8_t yPosition = V[y] % 32;
+
+    assert(n < 15);
+    //Chip-8 draws graphics on screen through the use of sprites. A sprite is a group of bytes which are a binary representation of the desired picture.
+    // Chip-8 sprites may be up to 15 bytes, for a possible sprite size of 8x15. 
+
+    //visual width is always 8 
+
+    for (int i = 0; i < n; i++) {
+        uint8_t memoryAddress = memory[indexRegister + i]; 
+
+        for (int j = 0; j < 8; j++) {
+            uint8_t sprite = memoryAddress & (0x80u >> j);
+            uint8_t* screen = &(display[64 * (yPosition + i) + xPosition + j]);
+
+            if (sprite && screen) {
+                V[0xF] = 1;
+            } else {
+                V[0xF] = 0;
+            }
+
+            *screen = *screen ^ sprite;
+        }
+    }
+    
 
 }
 
@@ -455,6 +482,76 @@ void Chip8::OP_ExA1() {
 
 void Chip8::OP_Fx0A() {
    // All execution stops until a key is pressed, then the value of that key is stored in Vx.
+    uint8_t reg = (instruction & 0x0F00) >> 8u;
+
+    if (keyPad[0])
+	{
+		V[reg] = 0;
+	}
+	else if (keyPad[1])
+	{
+		V[reg] = 1;
+	}
+	else if (keyPad[2])
+	{
+		V[reg] = 2;
+	}
+	else if (keyPad[3])
+	{
+		V[reg] = 3;
+	}
+	else if (keyPad[4])
+	{
+		V[reg] = 4;
+	}
+	else if (keyPad[5])
+	{
+		V[reg] = 5;
+	}
+	else if (keyPad[6])
+	{
+		V[reg] = 6;
+	}
+	else if (keyPad[7])
+	{
+		V[reg] = 7;
+	}
+	else if (keyPad[8])
+	{
+		V[reg] = 8;
+	}
+	else if (keyPad[9])
+	{
+		V[reg] = 9;
+	}
+	else if (keyPad[10])
+	{
+		V[reg] = 10;
+	}
+	else if (keyPad[11])
+	{
+		V[reg] = 11;
+	}
+	else if (keyPad[12])
+	{
+		V[reg] = 12;
+	}
+	else if (keyPad[13])
+	{
+		V[reg] = 13;
+	}
+	else if (keyPad[14])
+	{
+		V[reg] = 14;
+	}
+	else if (keyPad[15])
+	{
+		V[reg] = 15;
+	}
+	else
+	{
+		PC -= 2;
+	}
 
 }
 
